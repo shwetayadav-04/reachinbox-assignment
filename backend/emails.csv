@@ -1,0 +1,4 @@
+recipient,subject,body,scheduledAt
+wellington.huels@ethereal.email,CSV Test 1,Hello from CSV email 1,2026-09-02T14:10:00.000Z
+wellington.huels@ethereal.email,CSV Test 2,Hello from CSV email 2,2026-09-02T14:10:00.000Z
+wellington.huels@ethereal.email,CSV Test 3,Hello from CSV email 3,2026-09-01T14:10:00.000Z

@@ -1,0 +1,44 @@
+{
+  "name": "reachinbox-backend",
+  "version": "1.0.0",
+  "description": "ReachInbox email scheduler — backend API",
+  "main": "dist/app.js",
+  "scripts": {
+    "dev": "ts-node-dev --respawn --transpile-only src/app.ts",
+    "worker:dev": "ts-node-dev --respawn --transpile-only src/worker.ts",
+    "build": "tsc",
+    "start": "node dist/app.js",
+    "worker": "node dist/worker.js",
+    "db:migrate": "prisma migrate dev",
+    "db:generate": "prisma generate",
+    "db:studio": "prisma studio",
+    "search:reindex": "ts-node src/scripts/reindex.ts"
+  },
+  "dependencies": {
+    "@elastic/elasticsearch": "^8.19.2",
+    "@prisma/client": "^5.14.0",
+    "bullmq": "^5.7.0",
+    "connect-pg-simple": "^10.0.0",
+    "cors": "^2.8.6",
+    "csv-parse": "^7.0.2",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "express-session": "^1.19.0",
+    "googleapis": "^178.0.0",
+    "ioredis": "^5.3.2",
+    "multer": "^2.3.0",
+    "nodemailer": "^6.9.14"
+  },
+  "devDependencies": {
+    "@types/connect-pg-simple": "^7.0.3",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^4.17.21",
+    "@types/express-session": "^1.19.0",
+    "@types/multer": "^2.2.0",
+    "@types/node": "^20.14.2",
+    "@types/nodemailer": "^6.4.15",
+    "prisma": "^5.14.0",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.4.5"
+  }
+}

@@ -1,0 +1,70 @@
+// Prisma schema — database source of truth.
+// Run `npm run db:generate` after changes, `npm run db:migrate` to apply.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum EmailStatus {
+  SCHEDULED
+  PROCESSING
+  SENT
+  FAILED
+}
+
+model Sender {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  emails    Email[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Email {
+  id          String      @id @default(uuid())
+  recipient   String
+  subject     String
+  body        String
+  scheduledAt DateTime
+  sentAt      DateTime?
+  status      EmailStatus @default(SCHEDULED)
+  attempts    Int         @default(0)
+  
+  senderId    String
+  sender      Sender      @relation(fields: [senderId], references: [id])
+
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  @@index([status])
+  @@index([scheduledAt])
+  @@index([recipient])
+  @@index([senderId])
+}
+
+model SlackInstallation {
+  id                    String   @id @default(uuid())
+  teamId                String   @unique
+  teamName              String?
+  botUserId             String?
+  accessToken           String   // Encrypted
+  notificationChannelId String?
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+}
+
+/// Google OAuth users — only safe profile data, no tokens stored.
+model User {
+  id           String   @id @default(uuid())
+  googleId     String   @unique  // Google subject (sub) — stable identifier
+  email        String   @unique
+  name         String
+  avatarUrl    String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
