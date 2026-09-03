@@ -15,6 +15,8 @@ import { emailQueue } from "./queue/emailQueue";
 const app = express();
 const PgSession = connectPgSimple(session);
 
+app.set("trust proxy", 1); // Trust first proxy (needed for secure cookies behind a proxy like Vercel/Render)
+
 // ── Middleware ────────────────────────────────────────────────────────────────
 app.use(
   cors({
