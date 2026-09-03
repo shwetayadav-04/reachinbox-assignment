@@ -72,6 +72,7 @@ router.get("/google/callback", async (req, res) => {
 
 // ── GET /api/auth/me ──────────────────────────────────────────────────────
 router.get("/me", async (req, res) => {
+  console.log("SESSION CHECK:", req.session);
   if (!req.session || !req.session.userId) {
     return res.status(401).json({ error: "Unauthorized" });
   }
